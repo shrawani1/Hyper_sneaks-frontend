@@ -1,0 +1,122 @@
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  background-color: #1a1a1a;
+  margin: 0;
+  padding: 0;
+}
+
+.home-container {
+  text-align: center;
+  background-color: #1a1a1a;
+  color: #ffffff; /* Set default text color for the entire home container */
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  text-align: center;
+  color: white;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(236, 233, 232, 0.7)),
+    url('https://images.unsplash.com/photo-1679284392467-347236c31c5e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
+  background-size: cover;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image {
+  display: none;
+}
+
+.hero-text {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #ff6600;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn {
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn,
+.register-btn,
+.shop-now-btn {
+  background-color: #ff6600; /* Orange color */
+}
+
+.login-btn:hover,
+.register-btn:hover,
+.shop-now-btn:hover {
+  background-color: #e65c00; /* Darker shade of orange on hover */
+}
+
+/* Features Section */
+.features-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 0;
+  background-color: #ec9428;
+  color: #ffffff; /* Set default text color for the features section */
+}
+
+.feature-card {
+  background: #333333;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.9);
+  width: 25%;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-card i {
+  font-size: 3rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.feature-card h3,
+.feature-card p {
+  color: #ffffff; /* Set text color to white */
+}
+
+.feature-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 1.1rem;
+}
+

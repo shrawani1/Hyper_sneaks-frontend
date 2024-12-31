@@ -1,0 +1,42 @@
+/* Custom CSS */
+.container {
+    background-color: #e9f5ff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-label {
+    color: black !important;
+}
+
+.form-control {
+    color: black !important;
+    background-color: white !important;
+}
+
+h2 {
+    color: black !important;
+}
+
+.text-primary {
+    color: #0056b3 !important;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-primary:hover {
+    background-color: #004494;
+    border-color: #004494;
+}
+
+.image-section h6 {
+    color: black !important;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}

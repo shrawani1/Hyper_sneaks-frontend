@@ -1,0 +1,129 @@
+/* mycart.css */
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cart-container {
+  display: flex;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  /* Ensure container is above other content */
+}
+
+.cart-items-section {
+  flex: 1;
+  margin-right: 2rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.cart-item:hover {
+  transform: translateY(-5px);
+}
+
+.item-details {
+  flex: 1;
+  margin-left: 1.5rem;
+}
+
+.item-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.item-price {
+  font-weight: bold;
+  color: #e74c3c;
+  font-size: 1.1rem;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.bill-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  width: 400px;
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.total-amount {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #f1faee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.empty-cart-message {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+.cart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("https://images.unsplash.com/photo-1526415302530-ad8c7d818689?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center fixed;
+  background-size: cover;
+  z-index: -1;
+  /* Ensure background is behind content */
+  opacity: 0.2;
+  /* Make background less intrusive */
+}
+
+/* Adjustments for navbar and responsiveness */
+@media (max-width: 1200px) {
+  .cart-container {
+    flex-direction: column;
+  }
+
+  .cart-items-section {
+    margin-right: 0;
+    margin-bottom: 2rem;
+  }
+
+  .bill-section {
+    width: 100%;
+  }
+}

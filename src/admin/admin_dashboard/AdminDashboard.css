@@ -1,0 +1,113 @@
+body {
+  background-color: #e9f5ff;
+}
+
+
+
+.navbar .navbar-brand {
+  color: #fff;
+}
+
+.navbar .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.card {
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+.btn-primary {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary:hover {
+  background-color: #004494;
+  border-color: #004494;
+}
+
+/* New CSS rules to change text color to black */
+h3 {
+  color: black !important;
+}
+
+.modal-title {
+  color: black !important;
+}
+
+.modal-body .form-label {
+  color: black !important;
+}
+
+.modal-body input, .modal-body select, .modal-body textarea {
+  color: black !important;
+  background-color: white !important;
+}
+
+.modal-body input::placeholder, .modal-body textarea::placeholder {
+  color: #6c757d !important; /* Placeholder color */
+}
+
+.modal-content {
+  color: black !important;
+}
+
+.table-dark th {
+  color: white;
+  background-color: #343a40;
+}
+
+.table-dark td {
+  color: black;
+  background-color: #f8f9fa;
+}
+
+.card-header {
+  color: white !important;
+}
+
+.card-body {
+  color: black !important;
+}
+
+.card-title {
+  color: black !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.text-end button {
+  color: white;
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.text-end button:hover {
+  background-color: #004494;
+  border-color: #004494;
+}
+
+.btn-close {
+  filter: invert(1);
+}
+
+/* Ensuring all modal labels and inputs have black text */
+.modal-body label {
+  color: black !important;
+}
+
+.modal-body .form-control {
+  color: black !important;
+  background-color: white !important;
+}
+
+.modal-body input[type="file"] {
+  color: black !important;
+  background-color: white !important;
+}

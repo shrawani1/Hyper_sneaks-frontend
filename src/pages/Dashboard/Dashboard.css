@@ -1,0 +1,126 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dashboard-container {
+  background: url("https://images.unsplash.com/photo-1526415302530-ad8c7d818689?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  padding-top: 56px; /* Height of navbar */
+}
+
+.navbar-container {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-brand .navbar-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.brand-name {
+  font-weight: bold;
+}
+
+.brand-highlight {
+  color: orange;
+}
+
+.carousel-caption h5 {
+  background-color: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  padding: 10px;
+}
+
+.carousel-caption p {
+  background-color: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  padding: 5px;
+}
+
+h2.text-primary {
+  background: #fff;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.row-cols-1 .col, .row-cols-md-5 .col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.row-cols-md-5 .col {
+  margin-bottom: 10px; /* Reduced margin */
+}
+
+/* Pagination Styles */
+.pagination-container {
+  display: flex;
+  flex-direction: column; /* Stack pagination and sort buttons vertically */
+  align-items: center; /* Center pagination controls */
+  margin: 20px 0 60px; /* Margin to separate pagination from footer */
+  position: relative;
+  z-index: 1; /* Ensure pagination is on top */
+}
+
+/* Ensure pagination controls are well-positioned */
+.pagination {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0; /* No margin below pagination */
+}
+
+.page-item {
+  margin: 0 5px; /* Add space between pagination items */
+}
+
+.page-link {
+  display: block;
+  padding: 8px 16px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+}
+
+.page-item.active .page-link {
+  background-color: #28292a;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* Sort Buttons */
+.sort-container {
+  display: flex;
+  justify-content: center; /* Center sort buttons */
+  margin: 0 0 20px; /* Margin to keep sort buttons close to pagination */
+  position: relative;
+  z-index: 2; /* Ensure sort buttons are above waves */
+}
+
+.sort-container .btn {
+  margin: 0 5px; /* Space between sort buttons */
+  background-color: #2a313b;
+  border-color: #f1f1f1;
+}
+
+/* Footer Styling */
+footer {
+  margin-top: 80px; /* Ensure footer is separated from other content */
+  position: relative;
+  z-index: 1; /* Ensure footer is on top */
+}

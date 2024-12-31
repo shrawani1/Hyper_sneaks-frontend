@@ -1,0 +1,123 @@
+/* Profile.css */
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .profile-container {
+    background: url("https://images.unsplash.com/photo-1526415302530-ad8c7d818689?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+  }
+  
+  .profile-card {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-header h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+  }
+  
+  .profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .profile-info {
+    margin-bottom: 20px;
+  }
+  
+  .profile-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .profile-row label {
+    flex: 1;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .profile-row p {
+    flex: 2;
+    margin: 0;
+    padding-left: 10px;
+    color: #555;
+  }
+  
+  .edit-profile-form {
+    margin-top: 20px;
+  }
+  
+  .edit-profile-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .edit-profile-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .bg-blue-500 {
+    background-color: #007bff;
+  }
+  
+  .bg-gray-500 {
+    background-color: #6c757d;
+  }
+  
+  .bg-green-500 {
+    background-color: #28a745;
+  }
+  
+  .text-white {
+    color: #fff;
+  }
+  
+  .py-2 {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
+  
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .rounded {
+    border-radius: .25rem;
+  }
+
+  
