@@ -31,6 +31,7 @@ import Cart from './pages/myCart/MyCart';
 import Favourites from './pages/favourites/Favourites';
 import OrderList from './pages/order_list/OrderList';
 import ViewContact from './admin/view_contact/ViewContact';
+import VerifyEmail from './pages/verify email/verifyEmail';
 
 function App() {
   //const location = useLocation();
@@ -100,6 +101,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/verify-email/:token' element={<VerifyEmail/>} />
         
         {/* Admin routes */}
         <Route element={<AdminRoutes />}>
