@@ -143,7 +143,7 @@ const AdminDashboard = () => {
                           <img
                             width="40px"
                             height="40px"
-                            src={`http://localhost:5000/products/${singleProduct.productImage}`}
+                            src={`https://localhost:5000/products/${singleProduct.productImage}`}
                             alt={`${singleProduct.productName}`}
                             className="rounded"
                           />
