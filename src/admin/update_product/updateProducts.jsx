@@ -101,7 +101,7 @@ const UpdateProducts = () => {
 
                     <div className='image-section'>
                         <h6 className='text-black'>Previewing Old Image</h6>
-                        <img height={'200px'} width={'300px'} className='img-fluid rounded-4 object-fit-cover mb-3' src={`http://localhost:5000/products/${oldImage}`} alt="Old Product" />
+                        <img height={'200px'} width={'300px'} className='img-fluid rounded-4 object-fit-cover mb-3' src={`https://localhost:5000/products/${oldImage}`} alt="Old Product" />
                         {previewNewImage && (
                             <>
                                 <h6 className='text-black'>New Image</h6>
