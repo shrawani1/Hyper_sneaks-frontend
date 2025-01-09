@@ -1,23 +1,136 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Navbar.css';
+// import React, { useEffect, useState } from "react";
+// import { Link, useNavigate, useLocation } from "react-router-dom";
+// import "./Navbar.css";
+
+// const Navbar = () => {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const [welcomeMessage, setWelcomeMessage] = useState("");
+
+//   useEffect(() => {
+//     if (user) {
+//       // Fetch additional user data if needed
+//       const fetchUserData = async () => {
+//         try {
+//           const response = await fetch(`https://localhost:3000/user/${user._id}`);
+//           if (!response.ok) throw new Error("Network response was not ok");
+//           const data = await response.json();
+//           setWelcomeMessage(`Welcome back, ${data.firstName}!`);
+//         } catch (error) {
+//           console.log("Failed to fetch user data", error);
+//         }
+//       };
+//       fetchUserData();
+//     }
+//   }, [user]);
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("user");
+//     navigate("/login");
+//   };
+
+//   // Function to check if the link is active
+//   const isActive = (path) => location.pathname === path;
+
+//   return (
+//     <div className="navbar-container">
+//       <nav className="navbar">
+//         {/* Left Section: Logo and Search */}
+//         <div className="navbar-left">
+//           <div
+//             className="navbar-logo-link"
+//             onClick={() => navigate("/dashboard")}
+//             style={{ cursor: "pointer" }}
+//           >
+//             <img
+//               src="/assets/images/logo.png"
+//               alt="Logo"
+//               className="navbar-logo-circle"
+//             />
+//           </div>
+
+//           {/* Search Box */}
+//           <div className="search-container">
+//             <input
+//               type="text"
+//               placeholder="Tap to search"
+//               className="search-input"
+//             />
+//             <button className="search-button">
+//               <i className="fas fa-search"></i>
+//             </button>
+//           </div>
+//         </div>
+
+//         {/* Right Section: Links and Logout */}
+//         <div className="navbar-links-right">
+//           <Link className={`nav-link ${isActive("/dashboard") ? "active" : ""}`} to="/dashboard">
+//             Home
+//           </Link>
+//           {user && (
+//             <Link className={`nav-link ${isActive("/profile") ? "active" : ""}`} to="/profile">
+//               Profile
+//             </Link>
+//           )}
+//           <Link className={`nav-link ${isActive("/favourites") ? "active" : ""}`} to="/favourites">
+//             Favourites
+//           </Link>
+//           <Link className={`nav-link ${isActive("/my_cart") ? "active" : ""}`} to="/my_cart">
+//             Cart
+//           </Link>
+//           <Link className={`nav-link ${isActive("/orderlist") ? "active" : ""}`} to="/orderlist">
+//             My Orders
+//           </Link>
+
+//           {/* If user is logged in, show logout button */}
+//           {user ? (
+//             <>
+//               <span className="welcome-message">{welcomeMessage}</span>
+//               <button className="logout-button" onClick={handleLogout}>
+//                 <i className="fas fa-sign-out-alt mr-2"></i> Logout
+//               </button>
+//             </>
+//           ) : (
+//             <>
+//               <Link to="/login" className="nav-link">
+//                 <i className="fas fa-sign-in-alt mr-2"></i> Login
+//               </Link>
+//               <Link to="/register" className="nav-link">
+//                 <i className="fas fa-user-plus mr-2"></i> Register
+//               </Link>
+//             </>
+//           )}
+//         </div>
+//       </nav>
+//     </div>
+//   );
+// };
+
+// export default Navbar;
+
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  const [welcomeMessage, setWelcomeMessage] = useState('');
+  const location = useLocation();
+  
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [welcomeMessage, setWelcomeMessage] = useState("");
 
   useEffect(() => {
     if (user) {
-      // Fetch additional data if needed
+      // Fetch additional user data if needed
       const fetchUserData = async () => {
         try {
-          const response = await fetch(`http://localhost:3000/user/${user._id}`);
-          if (!response.ok) throw new Error('Network response was not ok');
+          const response = await fetch(`https://localhost:3000/user/${user._id}`);
+          if (!response.ok) throw new Error("Network response was not ok");
           const data = await response.json();
           setWelcomeMessage(`Welcome back, ${data.firstName}!`);
         } catch (error) {
-          console.log('Failed to fetch user data', error);
+          console.log("Failed to fetch user data", error);
         }
       };
       fetchUserData();
@@ -25,63 +138,95 @@ const Navbar = () => {
   }, [user]);
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
+  // Check if link is active
+  const isActive = (path) => location.pathname === path;
+
   return (
-    <div className="navbar-container">
-      <nav className="navbar">
-        <div className="navbar-left">
-          <Link className="navbar-logo-link" to="/">
-            <img src="../assets/images/logo.png" alt="Logo" className="navbar-logo" />
-            <span className="brand-name">
-              <span className="brand-highlight">Happy</span> Feet
-            </span>
+    <header className="fresh-navbar">
+
+       {/* Center section: Logo */}
+       <div className="nav-center" onClick={() => navigate("/dashboard")}>
+        <img
+          src="/assets/images/logo.png"
+          alt="Logo"
+          className="center-logo"
+        />
+      </div>
+
+      {/* Left section: Search bar */}
+      <div className="nav-left">
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="Tap to search"
+            className="search-input-fresh"
+          />
+          <button className="search-btn-fresh">
+            <i className="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+     
+      {/* Right section: Links & user info */}
+      <nav className="nav-right-links">
+        <Link
+          to="/dashboard"
+          className={`fresh-link ${isActive("/dashboard") ? "link-active" : ""}`}
+        >
+          Home
+        </Link>
+        {user && (
+          <Link
+            to="/profile"
+            className={`fresh-link ${isActive("/profile") ? "link-active" : ""}`}
+          >
+            Profile
           </Link>
-          <div className="navbar-links-left">
+        )}
+        <Link
+          to="/favourites"
+          className={`fresh-link ${isActive("/favourites") ? "link-active" : ""}`}
+        >
+          Favourites
+        </Link>
+        <Link
+          to="/my_cart"
+          className={`fresh-link ${isActive("/my_cart") ? "link-active" : ""}`}
+        >
+          Cart
+        </Link>
+        <Link
+          to="/orderlist"
+          className={`fresh-link ${isActive("/orderlist") ? "link-active" : ""}`}
+        >
+          My Orders
+        </Link>
 
-            <Link className="nav-link" to="/dashboard">Dashboard</Link>
-            {user && <Link className="nav-link" to="/profile">Profile</Link>}
-          </div>
-        </div>
-        <div className="navbar-links-right">
-          {user ? (
-            <div className="nav-item dropdown">
-              <button className="nav-link dropdown-toggle">
-                <i className="fas fa-user mr-2"></i>
-                {user.firstName}
-                <div className="welcome-message">{welcomeMessage}</div>
-              </button>
-              <div className="dropdown-menu">
-                <Link to='/my_cart' className="dropdown-item">
-                  <i className='fas fa-shopping-cart mr-2'></i> My Cart
-                </Link>
-                <Link to='/Favourites' className="dropdown-item">
-                  <i className='fas fa-shopping-cart mr-2'></i> Favourites
-                </Link>
-                <Link to='/orderlist' className="dropdown-item">
-                  <i className='fas fa-shopping-cart mr-2'></i> My orders
-                </Link>
-                <button onClick={handleLogout} className="dropdown-item">
-                  <i className="fas fa-sign-out-alt mr-2"></i> Logout
-                </button>
-              </div>
-            </div>
-          ) : (
-            <>
-              <Link to="/login" className="nav-link">
-                <i className="fas fa-sign-in-alt mr-2"></i> Login
-              </Link>
-              <Link to="/register" className="nav-link">
-                <i className="fas fa-user-plus mr-2"></i> Register
-              </Link>
-
-            </>
-          )}
-        </div>
+        {/* User login/logout controls */}
+        {user ? (
+          <>
+            <span className="welcome-text">{welcomeMessage}</span>
+            <button className="logout-btn-fresh" onClick={handleLogout}>
+              <i className="fas fa-sign-out-alt mr-2"></i> Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="fresh-link">
+              <i className="fas fa-sign-in-alt mr-2"></i> Login
+            </Link>
+            <Link to="/register" className="fresh-link">
+              <i className="fas fa-user-plus mr-2"></i> Register
+            </Link>
+          </>
+        )}
       </nav>
-    </div>
+    </header>
   );
 };
 

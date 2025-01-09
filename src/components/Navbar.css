@@ -1,129 +1,122 @@
-/* Navbar.css */
+/* ==================== RESET / BASE ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-.navbar-container {
-  background-color: #000; /* Black background */
-  position: fixed;
-  top: 0;
+.fresh-navbar {
   width: 100%;
-  z-index: 1000;
-  height: 60px; /* Increased size for better spacing */
-}
-
-.navbar {
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem; /* Added padding for better spacing */
-}
-
-.navbar-left {
+  background: #232f3e; /* Dark background (e.g., Amazon-style) */
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Space between left + center + right */
+  padding: 0.5rem 1rem;
+  position: fixed; /* Optional: fix at top */
+  top: 0;
+  z-index: 1000; /* Ensure it’s above other elements */
 }
 
-.navbar-logo-link {
+/* ==================== LEFT SECTION (SEARCH) ==================== */
+.nav-left {
+  flex: 1;
   display: flex;
   align-items: center;
-  color: white;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 280px;
+  width: 100%;
+  margin-left: 10px; /* Some spacing from the edge */
+}
+
+.search-input-fresh {
+  flex: 1;
+  border: none;
+  padding: 8px 10px;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.search-btn-fresh {
+  background: #febd69; /* accent color, e.g. Amazon style */
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-btn-fresh:hover {
+  background: #f9a826; /* darken on hover */
+}
+
+.search-btn-fresh i {
+  color: #000;
+}
+
+/* ==================== CENTER SECTION (LOGO) ==================== */
+.nav-center {
+  flex: 0.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.center-logo {
+  height: 50px;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+/* ==================== RIGHT SECTION (LINKS) ==================== */
+.nav-right-links {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem; /* spacing between links */
+}
+
+.fresh-link {
+  color: #fff;
   text-decoration: none;
+  font-size: 0.95rem;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
 }
 
-.navbar-logo {
-  height: 40px; /* Adjusted for better visibility */
+.fresh-link:hover {
+  background-color: #313f4f; /* slightly lighten on hover */
+}
+
+.link-active {
+  background-color: #37475a;
+}
+
+.welcome-text {
+  color: #ff9900; /* highlight text, e.g. orange color */
+  font-weight: 500;
   margin-right: 10px;
 }
 
-.brand-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
-}
-
-.brand-highlight {
-  color: #fff; /* Highlight color in white */
-}
-
-.navbar-links-left {
-  display: flex;
-  align-items: center;
-  margin-left: 20px; /* Space between brand and links */
-}
-
-.navbar-links-left .nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0 1rem; /* Adjusted for better spacing */
-  font-size: 1rem;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s ease;
-  margin-right: 20px; /* Adding gap between Home and Dashboard */
-}
-
-.navbar-links-left .nav-link:hover {
-  background-color: #333; /* Slightly lighter black for hover */
-}
-
-.navbar-links-right {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-links-right .nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0 1rem; /* Adjusted for better spacing */
-  font-size: 1rem;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s ease;
-}
-
-.navbar-links-right .nav-link:hover {
-  background-color: #333; /* Slightly lighter black for hover */
-}
-
-.nav-item.dropdown {
-  position: relative;
-}
-
-.dropdown-toggle {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem; /* Adjusted font size */
-  font-weight: bold; /* Added font weight */
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #000; /* Black background for dropdown */
-  padding: 0.5rem;
+/* Logout Button */
+.logout-btn-fresh {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 6px 10px;
   border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
 }
-
-.nav-item.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.dropdown-item {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem;
-  display: block;
-  font-size: 1rem; /* Adjusted font size */
-  font-weight: bold; /* Added font weight */
-}
-
-.dropdown-item:hover {
-  background-color: #333; /* Slightly lighter black for hover */
+.logout-btn-fresh:hover {
+  background: #fff;
+  color: #232f3e;
 }
