@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Creating backend Config
 const Api = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: "https://localhost:5000",
     withCredentials: true,
     headers: {
         "Content-Type": "multipart/form-data"
@@ -153,5 +153,8 @@ export const getAllContacts = () => Api.get('/api/contact/all', config);
 export const addReviewApi = (data) => Api.post('/api/rating/add', data,config);
 export const getReviewsApi = (productId) => Api.get(`/api/rating/product/${productId}`);
 
+// Verify email  
+export const verifyEmailApi = (data) =>
+  Api.put(`/api/user/verifyEmail/${data.token}`);
 
-  
+
