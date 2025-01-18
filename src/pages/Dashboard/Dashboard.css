@@ -1,126 +1,224 @@
-body, html {
-  height: 100%;
+
+
+/* Global resets */
+html,
+body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  background: #e9f4f5; /* Soft pastel teal background */
+  font-family: "Poppins", sans-serif;
 }
 
-.dashboard-container {
-  background: url("https://images.unsplash.com/photo-1526415302530-ad8c7d818689?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center fixed;
-  background-size: cover;
-  min-height: 100vh;
-  padding-top: 56px; /* Height of navbar */
-}
-
-.navbar-container {
+/* Wrapper for entire page */
+.fullpage-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 1000;
 }
 
-.navbar-brand .navbar-logo {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-}
-
-.brand-name {
-  font-weight: bold;
-}
-
-.brand-highlight {
-  color: orange;
-}
-
-.carousel-caption h5 {
-  background-color: rgba(0, 0, 0, 0.7);
-  display: inline-block;
-  padding: 10px;
-}
-
-.carousel-caption p {
-  background-color: rgba(0, 0, 0, 0.7);
-  display: inline-block;
-  padding: 5px;
-}
-
-h2.text-primary {
-  background: #fff;
-  padding: 15px;
-  border-radius: 5px;
-}
-
-.row-cols-1 .col, .row-cols-md-5 .col {
+/* ========== FULL-SCREEN HERO ========== */
+.fullscreen-hero {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  background: radial-gradient(
+    circle at center,
+    #30a3a8 0%,
+    #1f787d 50%,
+    #14565a 100%
+  );
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-}
-
-.row-cols-md-5 .col {
-  margin-bottom: 10px; /* Reduced margin */
-}
-
-/* Pagination Styles */
-.pagination-container {
-  display: flex;
-  flex-direction: column; /* Stack pagination and sort buttons vertically */
-  align-items: center; /* Center pagination controls */
-  margin: 20px 0 60px; /* Margin to separate pagination from footer */
-  position: relative;
-  z-index: 1; /* Ensure pagination is on top */
-}
-
-/* Ensure pagination controls are well-positioned */
-.pagination {
-  display: flex;
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0; /* No margin below pagination */
-}
-
-.page-item {
-  margin: 0 5px; /* Add space between pagination items */
-}
-
-.page-link {
-  display: block;
-  padding: 8px 16px;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  color: #007bff;
-  text-decoration: none;
-}
-
-.page-item.disabled .page-link {
-  color: #6c757d;
-  pointer-events: none;
-}
-
-.page-item.active .page-link {
-  background-color: #28292a;
   color: #fff;
-  border-color: #007bff;
+  overflow: hidden;
 }
 
-/* Sort Buttons */
-.sort-container {
+.hero-content {
+  text-align: center;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.hero-heading {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.hero-subheading {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.hero-cta {
+  background-color:  #febd69;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+.hero-cta:hover {
+  background-color: #ffa931;
+}
+
+/* ========== FLOATING SEARCH & SORT PANEL ========== */
+.lens-panel {
+  margin-top: -40px; /* Overlap the hero slightly */
+  margin-bottom: 40px;
+  width: 90%;
+  max-width: 1200px;
   display: flex;
-  justify-content: center; /* Center sort buttons */
-  margin: 0 0 20px; /* Margin to keep sort buttons close to pagination */
-  position: relative;
-  z-index: 2; /* Ensure sort buttons are above waves */
+  justify-content: center;
 }
 
-.sort-container .btn {
-  margin: 0 5px; /* Space between sort buttons */
-  background-color: #2a313b;
-  border-color: #f1f1f1;
+.lens-inner {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 20px 30px;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Footer Styling */
+.lens-search {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+.lens-search input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  outline: none;
+}
+.lens-search button {
+  padding: 10px 18px;
+  border: none;
+  background: #30a3a8;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.lens-search button:hover {
+  background: #208488;
+}
+
+.lens-sort {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lens-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.sort-pick {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #333;
+  transition: 0.2s;
+}
+.sort-pick:hover {
+  background-color: #f0f0f0;
+}
+.sort-active {
+  background-color: #ffb347;
+  border-color: transparent;
+  color: #fff;
+}
+
+/* ========== GLASS GRID ========== */
+.glass-grid {
+  width: 100%;          /* Use the full width of the viewport/container */
+  max-width: 1200px;     /* You can adjust or remove this if needed */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  gap: 24px;
+  padding: 20px;
+  margin-bottom: 40px;
+  animation: fadeInGrid 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+
+@keyframes fadeInGrid {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glassmorphic product card hover, if ProductCard has .product-card class */
+.product-card {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== PAGINATION ========== */
+.paging-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.paging-btn {
+  background-color: #30a3a8;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.paging-btn:hover {
+  background-color: #208488;
+}
+.page-active {
+  background-color: #ffb347;
+}
+.paging-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========== FOOTER OVERRIDES (OPTIONAL) ========== */
 footer {
-  margin-top: 80px; /* Ensure footer is separated from other content */
-  position: relative;
-  z-index: 1; /* Ensure footer is on top */
+  width: 100%;
+  background: #1f787d;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
 }
