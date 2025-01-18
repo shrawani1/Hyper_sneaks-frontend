@@ -1,73 +1,103 @@
-
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button, Modal, Image, Form, Input, Radio, Tooltip } from 'antd';
+import { ShoppingCartOutlined, HeartOutlined } from '@ant-design/icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { EyeOutlined, HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Image, Input, Modal, Radio, Tooltip } from "antd";
-import styled from "styled-components";
-import { addToFavoriteApi, getReviewsApi, addToCartApi, createOrderApi } from '../apis/Api';
+import { addToCartApi, addToFavoriteApi, getReviewsApi, createOrderApi } from '../apis/Api';
 
-const StyledCard = styled(Card)`
-  height: 100%;
-  .ant-card-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-`;
-
-const ProductImage = styled(Image)`
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-`;
-
-const ListViewProductImage = styled(Image)`
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  flex-shrink: 0;
-`;
-
-const ProductInfo = styled.div`
-  flex-grow: 1;
+// Styled Components
+const CardContainer = styled.div`
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
-const PriceTag = styled.p`
-  font-weight: bold;
-  color: #1890ff;
+const HeartButton = styled.div`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  cursor: pointer;
 `;
 
-const ActionButtons = styled.div`
+const ProductImage = styled.img`
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  cursor: pointer;
+`;
+
+const CardContent = styled.div`
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const TitleRow = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: auto;
+  align-items: baseline;
 `;
 
-const StyledModal = styled(Modal)`
-  .ant-modal-content {
-    border-radius: 8px;
-  }
-  .ant-modal-header {
-    border-radius: 8px 8px 0 0;
-  }
-  .ant-modal-body {
-    padding: 24px;
-  }
+const ProductTitle = styled.h5`
+  margin: 0;
+  font-size: 16px;
+  color: #333;
 `;
 
-const ProductCard = ({ productInformation, viewMode, color }) => {
-  const [show, setShow] = useState(false);
+const ProductPrice = styled.h5`
+  margin: 0;
+  font-size: 16px;
+  color: #d9534f;
+`;
+
+const Description = styled.p`
+  margin: 10px 0;
+  color: #666;
+  font-size: 14px;
+  flex-grow: 1;
+  line-height: 1.4;
+`;
+
+const ButtonRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+`;
+
+const ReviewsSection = styled.div`
+  margin-top: 16px;
+  font-size: 14px;
+`;
+
+// ProductCard Component
+const ProductCard = ({ productInformation }) => {
+  const [showModal, setShowModal] = useState(false);
   const [buyNowShow, setBuyNowShow] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [address, setAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [address, setAddress] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('');
   const [reviews, setReviews] = useState([]);
 
+  const totalPrice = productInformation.productPrice * quantity;
+
+  // Fetch Reviews
   const fetchReviews = async () => {
     try {
       const response = await getReviewsApi(productInformation._id);
@@ -79,51 +109,34 @@ const ProductCard = ({ productInformation, viewMode, color }) => {
 
   useEffect(() => {
     fetchReviews();
-  }, []);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const handleBuyNowClose = () => setBuyNowShow(false);
-  const handleBuyNowShow = () => {
-    setQuantity(1);
-    setAddress("");
-    setPaymentMethod("");
-    setBuyNowShow(true);
-  };
+  }, [productInformation._id]);
 
   const handleAddToCart = async () => {
     try {
-      const quantity = 1; // or set this to a variable if you have quantity input
-      const total = quantity * productInformation.productPrice;
-  
-      await addToCartApi({ 
-        productId: productInformation._id, 
-        quantity: quantity, 
-        total: total 
+      await addToCartApi({
+        productId: productInformation._id,
+        quantity: 1,
       });
-      
-      toast.success("Added to cart successfully!");
-    } catch (error) {
-      toast.error("Failed to add to cart.");
+      toast.success('Added to cart!');
+    } catch {
+      toast.error('Error adding to cart.');
     }
   };
-  
-  const addToFavourites = async () => {
+
+  const handleAddToFavorites = async () => {
     try {
       await addToFavoriteApi({ productId: productInformation._id });
-      toast.success("Added to favourites successfully");
-    } catch (error) {
-      toast.error("Error adding to favourites");
+      toast.success('Added to favorites!');
+    } catch {
+      toast.error('Error adding to favorites.');
     }
   };
 
-  const placeOrder = async () => {
+  const handlePlaceOrder = async () => {
     if (!address || !paymentMethod) {
-      toast.error("All fields are required");
+      toast.error('All fields are required.');
       return;
     }
-
     try {
       await createOrderApi({
         carts: [{ productId: productInformation._id, quantity }],
@@ -131,164 +144,80 @@ const ProductCard = ({ productInformation, viewMode, color }) => {
         totalAmount: totalPrice,
         paymentType: paymentMethod,
       });
-      toast.success("Order Successful");
-      handleBuyNowClose();
-    } catch (error) {
-      toast.error("Failed to place order");
+      toast.success('Order placed successfully!');
+      setBuyNowShow(false);
+    } catch {
+      toast.error('Failed to place order.');
     }
   };
 
-  const totalPrice = productInformation.productPrice * quantity;
-
-  const cardContent = (
-    <>
-      <ProductImage
-        src={`http://localhost:5000/products/${productInformation.productImage}`}
-        alt={productInformation.productName}
-        preview={false}
-        onClick={handleShow}
-      />
-      <ProductInfo>
-        <h3>{productInformation.productName}</h3>
-        <PriceTag>Rs {productInformation.productPrice}</PriceTag>
-        <ActionButtons>
-          <Tooltip title="Add to Cart">
-            <Button
-              icon={<ShoppingCartOutlined />}
-              onClick={handleAddToCart}
-            >
-              Add to Cart
-            </Button>
-          </Tooltip>
-          <Tooltip title="Add to Favorites">
-            <Button
-              icon={<HeartOutlined />}
-              onClick={addToFavourites}
-            />
-          </Tooltip>
-          <Tooltip title="View Details">
-            <Button icon={<EyeOutlined />} onClick={handleShow} />
-          </Tooltip>
-        </ActionButtons>
-      </ProductInfo>
-    </>
-  );
-
   return (
-    <>
-      <div className="card" style={{ width: '18rem', height: '100%', position: 'relative' }}>
-        <span
-          style={{ backgroundColor: color }}
-          className='badge position-absolute top-0'
-        >
-          {productInformation.productCategory}
-        </span>
-        <img
-          src={`http://localhost:5000/products/${productInformation.productImage}`}
-          className="card-img-top"
-          alt="Product"
-          style={{ height: '12rem', objectFit: 'cover' }}
-          onClick={handleShow}
-        />
-        <div
-          className="heart-button"
-          style={{
-            position: 'absolute',
-            top: '10px',
-            right: '10px',
-            backgroundColor: 'rgba(255, 255, 255, 0.9)', // Light background for visibility
-            border: '2px solid rgba(0, 0, 0, 0.2)', // Border for better definition
-            borderRadius: '50%',
-            width: '40px',
-            height: '40px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            zIndex: 1,
-          }}
-          onClick={addToFavourites}
-        >
-          <i className="fas fa-heart" style={{ color: 'red', fontSize: '20px' }}></i>
-        </div>
-        <div className="card-body" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 'calc(100% - 12rem)' }}>
-          <div className='d-flex justify-content-between'>
-            <h5 className="card-title">{productInformation.productName}</h5>
-            <h5 className="card-title text-danger">Rs {productInformation.productPrice}</h5>
-          </div>
-          <p className="card-text">{productInformation.productDescription.slice(0, 30)}</p>
-          <Link to={`/view_product/${productInformation._id}`} className="btn btn-primary mt-2" style={{ borderColor: 'black', color: 'white', backgroundColor: 'lightnavy' }}>View more</Link>
-          <button onClick={handleAddToCart} className="btn btn-primary mt-2">Add to Cart</button>
-          <ToastContainer />
-        </div>
-      </div>
-
-      <StyledModal
-        title={productInformation.productName}
-        visible={show}
-        onCancel={handleClose}
-        footer={[
-          <Button key="close" onClick={handleClose}>
-            Close
-          </Button>,
-          <Button
-            key="addToCart"
-            type="primary"
-            onClick={() => {
-              handleAddToCart();
-              handleClose();
-            }}
-          >
+    <CardContainer>
+      <HeartButton onClick={handleAddToFavorites}>
+        <HeartOutlined style={{ color: 'red', fontSize: '18px' }} />
+      </HeartButton>
+      <ProductImage
+        src={`https://localhost:5000/products/${productInformation.productImage}`}
+        alt={productInformation.productName}
+        onClick={() => setShowModal(true)}
+      />
+      <CardContent>
+        <TitleRow>
+          <ProductTitle>{productInformation.productName}</ProductTitle>
+          <ProductPrice>Rs {productInformation.productPrice}</ProductPrice>
+        </TitleRow>
+        <Description>{productInformation.productDescription.slice(0, 40)}...</Description>
+        <ButtonRow>
+          <Button icon={<ShoppingCartOutlined />} onClick={handleAddToCart}>
             Add to Cart
-          </Button>,
-          <Button
-            key="addToFavorites"
-            onClick={() => {
-              addToFavourites();
-              handleClose();
-            }}
-          >
-            Add to Favorites
-          </Button>,
-          <Button key="buyNow" type="primary" danger onClick={handleBuyNowShow}>
+          </Button>
+          <Button type="primary" danger onClick={() => setBuyNowShow(true)}>
             Buy Now
-          </Button>,
-        ]}
+          </Button>
+        </ButtonRow>
+      </CardContent>
+
+      {/* Modal for Details */}
+      <Modal
+        visible={showModal}
+        title={productInformation.productName}
+        onCancel={() => setShowModal(false)}
+        footer={null}
       >
         <Image
-          src={`http://localhost:5000/products/${productInformation.productImage}`}
+          src={`https://localhost:5000/products/${productInformation.productImage}`}
           alt={productInformation.productName}
-          style={{ width: "100%", marginBottom: "16px" }}
+          style={{ width: '100%' }}
         />
         <p>{productInformation.productDescription}</p>
-        <PriceTag>Rs {productInformation.productPrice}</PriceTag>
-      </StyledModal>
+        <h5>Price: Rs {productInformation.productPrice}</h5>
+        <ReviewsSection>
+          <h6>Reviews:</h6>
+          {reviews.length > 0
+            ? reviews.map((review) => (
+                <div key={review._id}>
+                  <strong>{review.user.name}</strong>
+                  <p>{review.content}</p>
+                </div>
+              ))
+            : 'No reviews yet.'}
+        </ReviewsSection>
+      </Modal>
 
-      <StyledModal
+      {/* Buy Now Modal */}
+      <Modal
         title="Buy Now"
         visible={buyNowShow}
-        onCancel={handleBuyNowClose}
+        onCancel={() => setBuyNowShow(false)}
         footer={[
-          <Button key="close" onClick={handleBuyNowClose}>
-            Close
+          <Button key="cancel" onClick={() => setBuyNowShow(false)}>
+            Cancel
           </Button>,
-          <Button key="placeOrder" type="primary" onClick={placeOrder}>
+          <Button key="order" type="primary" onClick={handlePlaceOrder}>
             Place Order
           </Button>,
         ]}
       >
-        <div style={{ display: "flex", marginBottom: "16px" }}>
-          <Image
-            src={`http://localhost:5000/products/${productInformation.productImage}`}
-            alt={productInformation.productName}
-            style={{ width: "100px", height: "100px", marginRight: "16px" }}
-          />
-          <div>
-            <h4>{productInformation.productName}</h4>
-            <p>{productInformation.productDescription}</p>
-            <PriceTag>Rs {productInformation.productPrice} per unit</PriceTag>
-          </div>
-          </div>
         <Form layout="vertical">
           <Form.Item label="Quantity">
             <Input
@@ -314,24 +243,10 @@ const ProductCard = ({ productInformation, viewMode, color }) => {
             </Radio.Group>
           </Form.Item>
         </Form>
-        <div style={{ marginTop: '16px' }}>
-          <h4>Reviews:</h4>
-          {reviews.length > 0 ? (
-            reviews.map((review) => (
-              <div key={review._id} style={{ marginBottom: '8px' }}>
-                <strong>{review.user.name}</strong>
-                <p>{review.content}</p>
-              </div>
-            ))
-          ) : (
-            <p>No reviews yet.</p>
-          )}
-        </div>
-      </StyledModal>
-    </>
+      </Modal>
+      <ToastContainer position="top-right" autoClose={3000} />
+    </CardContainer>
   );
 };
 
 export default ProductCard;
-
-       
