@@ -1,131 +1,151 @@
 import React, { useState, useEffect } from 'react';
 import { getUserProfileApi, updateUserProfileApi } from '../apis/Api';
 import { toast } from 'react-toastify';
-import './Profile.css'; // Ensure you have this file for custom styles
-
+import './Profile.css';
 
 const Profile = () => {
-  const [user, setUser] = useState({});
-  const [editMode, setEditMode] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    password: ''
+  });
 
   useEffect(() => {
+    // Fetch the user profile when the component mounts
     getUserProfileApi()
       .then((res) => {
-        setUser(res.data);
-        setFirstName(res.data.firstName);
-        setLastName(res.data.lastName);
-        setPhone(res.data.phone);
+        const data = res.data;
+        setUser(data);
+        setFormData({
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          phone: data.phone || '',
+          password: ''
+        });
       })
       .catch((error) => {
-        toast.error('Error fetching user data');
+        toast.error('Failed to load profile');
       });
   }, []);
 
-  const handleUpdateProfile = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleProfileUpdate = (e) => {
     e.preventDefault();
-    updateUserProfileApi({ firstName, lastName, phone, password })
+    updateUserProfileApi(formData)
       .then((res) => {
-        toast.success('Profile updated successfully');
         setUser(res.data);
-        setEditMode(false);
+        setEditing(false);
+        toast.success('Profile updated successfully');
       })
       .catch((error) => {
         toast.error('Error updating profile');
       });
   };
 
+  if (!user) {
+    return <div className="loading-msg">Loading profile...</div>;
+  }
+
   return (
-    <div className="profile-container">
+    <div className="profile-wrapper">
       <div className="profile-card">
-        <div className="profile-header">
-          <img
-            src="../assets/images/logo.png"
-            alt="Company Logo"
-          />
-          <h1>User Profile</h1>
-        </div>
-        {!editMode ? (
-          <div className="profile-info">
-            <div className="profile-row">
-              <label>First Name:</label>
-              <p>{user.firstName}</p>
-            </div>
-            <div className="profile-row">
-              <label>Last Name:</label>
-              <p>{user.lastName}</p>
-            </div>
-            <div className="profile-row">
-              <label>Email:</label>
-              <p>{user.email}</p>
-            </div>
-            <div className="profile-row">
-              <label>Phone:</label>
-              <p>{user.phone}</p>
-            </div>
-            <button
-              onClick={() => setEditMode(true)}
-              className="bg-blue-500 text-white py-2 px-4 rounded"
-            >
-              Edit Profile
+        <header className="profile-header">
+          <h2>My Profile</h2>
+          {!editing && (
+            <button onClick={() => setEditing(true)} className="btn-edit">
+              Edit
             </button>
-          </div>
-        ) : (
-          <form onSubmit={handleUpdateProfile} className="edit-profile-form">
-            <div className="form-group mb-4">
-              <label>First Name</label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
+          )}
+        </header>
+        <div className="profile-body">
+          {!editing ? (
+            <div className="profile-view">
+              <div className="profile-row">
+                <span className="label">First Name</span>
+                <span className="value">{user.firstName}</span>
+              </div>
+              <div className="profile-row">
+                <span className="label">Last Name</span>
+                <span className="value">{user.lastName}</span>
+              </div>
+              <div className="profile-row">
+                <span className="label">Email</span>
+                <span className="value">{user.email}</span>
+              </div>
+              <div className="profile-row">
+                <span className="label">Phone</span>
+                <span className="value">{user.phone}</span>
+              </div>
             </div>
-            <div className="form-group mb-4">
-              <label>Last Name</label>
-              <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </div>
-            <div className="form-group mb-4">
-              <label>Phone</label>
-              <input
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-            <div className="form-group mb-4">
-              <label>Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="flex justify-between mt-6">
-              <button
-                type="button"
-                onClick={() => setEditMode(false)}
-                className="bg-gray-500 text-white py-2 px-4 rounded"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-green-500 text-white py-2 px-4 rounded"
-              >
-                Save Changes
-              </button>
-            </div>
-          </form>
-        )}
+          ) : (
+            <form onSubmit={handleProfileUpdate} className="profile-form">
+              <div className="form-group">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone">Phone</label>
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password (if changing)</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Leave blank to keep current password"
+                />
+              </div>
+              <div className="form-actions">
+                <button
+                  type="button"
+                  onClick={() => setEditing(false)}
+                  className="btn btn-cancel"
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-save">
+                  Save
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
       </div>
-      
     </div>
   );
 };
