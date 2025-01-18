@@ -1,19 +1,12 @@
-
-import { Button, Image } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { Button, Image } from 'antd';
 import Rating from 'react-rating-stars-component';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for react-toastify
-import styled from 'styled-components';
+import 'react-toastify/dist/ReactToastify.css';
 import { addReviewApi, addToCartApi, getReviewsApi, getSingleProduct, getUserProfileApi } from '../../apis/Api';
 import Footer from '../../components/Footer';
 import './ViewProduct.css';
-
-const PriceTag = styled.p`
-  font-weight: bold;
-  color: #1890ff;
-`;
 
 const ViewProduct = () => {
   const { id } = useParams();
@@ -36,9 +29,8 @@ const ViewProduct = () => {
         setProduct(res.data.product);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
-
     fetchReviews();
     fetchUserProfile();
   }, [id]);
@@ -72,7 +64,7 @@ const ViewProduct = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -93,7 +85,6 @@ const ViewProduct = () => {
 
   const handleProceedToPayment = async () => {
     try {
-      // Ensure item is added to cart before navigating
       await handleAddToCart();
       navigate('/my_cart');
     } catch (error) {
@@ -111,23 +102,17 @@ const ViewProduct = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  };
-
   const submitReview = async () => {
     if (!rating || !newReview) {
       toast.error("Please provide both rating and comment");
       return;
     }
-
     try {
       const res = await addReviewApi({ productId: id, rating, comment: newReview });
       toast.success(res.data.message);
-      setRating(1); // Reset rating
-      setNewReview(""); // Reset comment
-      fetchReviews(); // Fetch reviews again after submission
+      setRating(1);
+      setNewReview('');
+      fetchReviews();
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         toast.error(err.response.data.message);
@@ -138,95 +123,83 @@ const ViewProduct = () => {
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <div className="vp-loading">Loading...</div>;
   }
 
   return (
-    <div className="background">
+    <div className="vp-wrapper">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} closeOnClick />
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-md-6">
+      <div className="vp-container">
+        <div className="vp-product-card">
+          <div className="vp-product-image">
             <Image
-              src={`http://localhost:5000/products/${product.productImage}`}
+              src={`https://localhost:5000/products/${product.productImage}`}
               alt={product.productName}
-              className="img-fluid product-image"
               preview={false}
             />
           </div>
-          <div className="col-md-6">
-            <div className="card p-3 product-details">
-              <h2>{product.productName}</h2>
-              <PriceTag>Rs {product.productPrice}</PriceTag>
-              <h5>Category: {product.productCategory}</h5>
-              <p><strong>Description: </strong>{product.productDescription}</p>
-              <p><strong>Date Added: </strong>{new Date(product.createdAt).toLocaleDateString()}</p>
-              <p><strong>Status: </strong>Available</p>
-              <p><strong>Views: </strong>{product.views}</p>
-              <div className="mt-3">
-                <div className="quantity-selector">
-                  <Button onClick={decreaseQuantity} type="primary">-</Button>
-                  <span>{quantity}</span>
-                  <Button onClick={increaseQuantity} type="primary">+</Button>
+          <div className="vp-product-info">
+            <h1 className="vp-title">{product.productName}</h1>
+            <p className="vp-price">Rs {product.productPrice}</p>
+            <p className="vp-description">{product.productDescription}</p>
+            <div className="vp-meta">
+              
+              <span>Date Added: {new Date(product.createdAt).toLocaleDateString()}</span>
+              <span>Views: {product.views}</span>
+            </div>
+            <div className="vp-actions">
+              <div className="vp-quantity-controls">
+                <Button onClick={decreaseQuantity} type="primary">-</Button>
+                <span className="vp-quantity">{quantity}</span>
+                <Button onClick={increaseQuantity} type="primary">+</Button>
+              </div>
+              <div className="vp-cart-buttons">
+                <Button onClick={handleAddToCart} type="primary" className="vp-add-to-cart">Add to Cart</Button>
+                <Button onClick={handleProceedToPayment} type="primary" className="vp-buy-now">Buy Now</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="vp-reviews-section">
+          <div className="vp-review-form">
+            <h2>Leave a Review</h2>
+            <textarea
+              className="vp-review-textarea"
+              value={newReview}
+              onChange={(e) => setNewReview(e.target.value)}
+              placeholder="Share your thoughts about this product..."
+              rows="4"
+            />
+            <div className="vp-review-rating">
+              <label>Rating:</label>
+              <select value={rating} onChange={(e) => setRating(parseInt(e.target.value, 10))}>
+                {[1, 2, 3, 4, 5].map(num => (
+                  <option key={num} value={num}>{num} ★</option>
+                ))}
+              </select>
+            </div>
+            <Button onClick={submitReview} type="primary" className="vp-submit-review">Submit Review</Button>
+          </div>
+          <div className="vp-reviews-list">
+            <h2>Customer Reviews</h2>
+            <div className="vp-average-rating">
+              Average Rating: {averageRating.toFixed(1)} ★
+            </div>
+            {reviews.length === 0 ? (
+              <p>No reviews yet.</p>
+            ) : (
+              reviews.map((rev, index) => (
+                <div key={index} className="vp-review-item">
+                  <p className="vp-review-user">
+                    <strong>{rev.userId.firstName} {rev.userId.lastName}</strong>
+                  </p>
+                  <p className="vp-review-rating">
+                    <strong>Rating:</strong> {rev.rating} ★
+                  </p>
+                  <p className="vp-review-comment">{rev.comment}</p>
                 </div>
-                <Button onClick={handleAddToCart} type="primary" className="me-2">Add to Cart</Button>
-                <Button onClick={handleProceedToPayment} type="primary">Buy Now</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row mt-4">
-          <div className="col-md-12">
-            <div className="card p-3 review-section">
-              <h4>Add a Review</h4>
-              <textarea
-                value={newReview}
-                onChange={(e) => setNewReview(e.target.value)}
-                placeholder="Write your review here..."
-                rows="4"
-                className="review-textarea"
-              />
-              <div className="rating-input">
-                <label>Rating:</label>
-                <select value={rating} onChange={(e) => setRating(parseInt(e.target.value, 10))}>
-                  {[1, 2, 3, 4, 5].map(num => (
-                    <option key={num} value={num}>{num} ★</option>
-                  ))}
-                </select>
-              </div>
-              <Button className="btn btn-primary mt-2" onClick={submitReview}>Submit Review</Button>
-            </div>
-          </div>
-        </div>
-        <div className="row mt-4">
-          <div className="col-md-12">
-            <div className="card p-3 customer-reviews">
-              <h4>Customer Reviews</h4>
-              <Rating
-                value={averageRating}
-                edit={false}
-                size={24}
-                activeColor="#ffd700"
-              />
-              <div className="reviews-list">
-                {reviews.length === 0 ? (
-                  <p>No reviews yet.</p>
-                ) : (
-                  reviews.map((rev, index) => (
-                    <div key={index} className="review-item">
-                      <p><strong>{rev.userId.firstName} {rev.userId.lastName}</strong></p>
-                      <p><strong>Rating:</strong> {rev.rating} ★</p>
-                      <p>{rev.comment}</p>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row mt-4">
-          <div className="col-md-12">
-
+              ))
+            )}
           </div>
         </div>
       </div>
