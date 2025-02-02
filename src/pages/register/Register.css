@@ -52,7 +52,6 @@ body {
   flex-direction: column;
 }
 
-/* Label styling */
 .form-group label {
   font-size: 0.9rem;
   margin-bottom: 5px;
