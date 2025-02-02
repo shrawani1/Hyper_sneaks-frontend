@@ -109,7 +109,7 @@ const EmptyState = styled.div`
   font-size: 1.2rem;
 `;
 
-// Custom styled buttons
+
 
 const BuyNowButton = styled(Button)`
   background-color: #febd69 !important;
