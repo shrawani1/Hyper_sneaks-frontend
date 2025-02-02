@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { getUserOrdersApi } from "../../apis/Api";
 
-// ===== Styled Components =====
+
 
 const Wrapper = styled.div`
   background: linear-gradient(135deg, #e0eafc, #f8f8f8;);
