@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [searchInput, setSearchInput] = useState("");
   const [priceSorting, setPriceSorting] = useState("asc");
 
-  const limitPerPage = 10; // items per page
+  const limitPerPage = 10; 
 
   // Retrieve total item count -> set maxIndex
   const getTotalShoes = () => {
