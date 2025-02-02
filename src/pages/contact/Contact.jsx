@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../../components/Footer';
-import './Contact.css'; // Import the CSS for styling
-
+import './Contact.css'; 
 const Contact = () => {
   const [formData, setFormData] = useState({
     firstName: '',
