@@ -18,7 +18,7 @@ body, html {
   background: linear-gradient(135deg, #ece9e6, #ffffff);
 }
 
-/* Centered login card with an elevated look */
+/* Centered login card */
 .login-card {
   background: #ffffff;
   border-radius: 12px;
@@ -103,7 +103,7 @@ body, html {
   padding: 0;
 }
 
-/* Login button styling */
+
 .login-btn {
   background-color: #007bff;
   color: #fff;
