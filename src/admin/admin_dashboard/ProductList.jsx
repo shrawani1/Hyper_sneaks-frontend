@@ -5,7 +5,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Dummy data initialization
+    
     const dummyProducts = [
       { _id: 1, productName: 'Product 1', productPrice: 100, productCategory: 'Category A', productDescription: 'Description A' },
       { _id: 2, productName: 'Product 2', productPrice: 200, productCategory: 'Category B', productDescription: 'Description B' },
