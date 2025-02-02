@@ -1,4 +1,4 @@
-/* ==================== RESET / BASE ==================== */
+
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +17,7 @@
   z-index: 1000; /* Ensure it’s above other elements */
 }
 
-/* ==================== LEFT SECTION (SEARCH) ==================== */
+
 .nav-left {
   flex: 1;
   display: flex;
