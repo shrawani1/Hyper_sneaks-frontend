@@ -2,8 +2,6 @@ body {
   background-color: #e9f5ff;
 }
 
-
-
 .navbar .navbar-brand {
   color: #fff;
 }
@@ -49,7 +47,7 @@ h3 {
 }
 
 .modal-body input::placeholder, .modal-body textarea::placeholder {
-  color: #6c757d !important; /* Placeholder color */
+  color: #6c757d !important; 
 }
 
 .modal-content {
@@ -97,7 +95,6 @@ h3 {
   filter: invert(1);
 }
 
-/* Ensuring all modal labels and inputs have black text */
 .modal-body label {
   color: black !important;
 }
