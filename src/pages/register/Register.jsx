@@ -15,7 +15,7 @@ const Register = () => {
   const [passwordStrength, setPasswordStrength] = useState('');
   const [errors, setErrors] = useState({});
 
-  // Track if user successfully registered.
+  
   const [isRegistered, setIsRegistered] = useState(false);
 
   const navigate = useNavigate();
