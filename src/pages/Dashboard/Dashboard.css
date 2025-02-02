@@ -5,7 +5,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #e9f4f5; /* Soft pastel teal background */
+  background: #e9f4f5; 
   font-family: "Poppins", sans-serif;
 }
 
@@ -71,7 +71,6 @@ body {
   background-color: #ffa931;
 }
 
-/* ========== FLOATING SEARCH & SORT PANEL ========== */
 .lens-panel {
   margin-top: -40px; /* Overlap the hero slightly */
   margin-bottom: 40px;
