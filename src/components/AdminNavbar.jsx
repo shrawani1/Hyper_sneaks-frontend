@@ -45,9 +45,7 @@ const AdminNavbar = () => {
               </button>
               <div className="dropdown-menu">
                
-                {/* <Link to='/my_cart' className="dropdown-item">
-                  <i className='fas fa-shopping-cart mr-2'></i> My orders
-                </Link> */}
+               
                 <button onClick={handleLogout} className="dropdown-item">
                   <i className="fas fa-sign-out-alt mr-2"></i> Logout
                 </button>
