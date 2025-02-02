@@ -6,7 +6,7 @@ import { loginUserApi } from "../../apis/Api";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
-const LOCKOUT_TIME = 5 * 60 * 1000; // 5 minutes in milliseconds
+const LOCKOUT_TIME = 5 * 60 * 1000; 
 const MAX_FAILED_ATTEMPTS = 5;
 
 const Login = () => {
