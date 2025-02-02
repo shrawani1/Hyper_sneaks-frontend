@@ -53,7 +53,7 @@ function App() {
     }
   };
 
-  // In App.js
+  
 
   const addToCart = async (product) => {
     try {
