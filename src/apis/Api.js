@@ -83,18 +83,13 @@ export const productPagination = (page, limit, searchQuery = '', sortOrder = 'as
 // Product count API
 export const productCount = () => Api.get('/api/product/get_product_count', getConfig());
 
-// // Review APIs
-// export const addReviewApi = (data) => Api.post('/api/rating/review', data);
-// export const getReviewsApi = (productId) => Api.get(`/api/rating/get_review/${productId}`);
+
 
 // Get user details API
 export const getUserDetails = (userId) => Api.get(`/api/user/${userId}`, getConfig());
 
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// add to cart
+// Add to cart
 export const addToCartApi = (data) => Api.post("/api/cart/add", data, config);
 
 // get all cart
