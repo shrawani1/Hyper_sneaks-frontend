@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addToCartApi, addToFavoriteApi, getReviewsApi, createOrderApi } from '../apis/Api';
 
-// Styled Components
+
 const CardContainer = styled.div`
   background: #fff;
   border: 1px solid #e0e0e0;
