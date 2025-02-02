@@ -5,7 +5,7 @@ Navbar Styles
   }
   
   .navbar {
-    background-color: #f4eae4;
+    background-color: #dbe1e7; 
   }
   
   .navbar-brand {
@@ -43,7 +43,7 @@ Navbar Styles
   }
   
   .dropdown-menu {
-    background-color: #343a40;
+    background-color: #d5d9dd;
     border: none;
   }
   
